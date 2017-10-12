@@ -62,14 +62,23 @@
 }
 
 
-.results {
+.results-selection {
   background: #f1f1f1;
   padding: 2em;
   font-size: 1.4em;
   font-weight: lighter;
+  font-family: 'Open Sans', sans-serif;
   color: #444;
 }
 
 span.optionText {
+  font-family: 'Open Sans', sans-serif;
   padding: 6px;
+}
+
+.checkIcon {
+  opacity: 0.2;
+}
+.checkIcon.checked {
+  opacity: 1;
 }

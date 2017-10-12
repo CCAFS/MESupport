@@ -28,6 +28,6 @@ $container['view'] = function ($container) {
 require '../src/routes/index.php';
 
 // API Routes
-require '../src/routes/customers.php';
+require '../src/routes/guidelines.php';
 
 $app->run();
