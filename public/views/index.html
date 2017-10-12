@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Monitoring & Evaluation Support Pack</title>
+
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./bower_components/animate.css/animate.min.css">
+    <link rel="stylesheet" href="./css/master.css">
+  </head>
+  <body>
+    <header></header>
+    <div class="container">
+
+    <div class="searchBlock form-group">
+      <input type="text" name="" value="">
+    </div>
+    <div class="selectionBlock form-group row">
+      <div class="selectionComponent rolesBlock col-md-4">
+        <p><img src="./images/icon-1.png" alt=""> <span class="optionText">Choose a Role...</span></p>
+        <ul>
+          {% for role in roles %}<li class="id-{{ role.id }}">{{ role.name }}</li>{% endfor %}
+        </ul>
+      </div>
+      <div class="selectionComponent stagesBlock col-md-4">
+        <p><img src="./images/icon-2.png" alt=""> <span class="optionText">Choose when...</span></p>
+        <ul>
+          {% for stage in stages %}<li class="id-{{ stage.id }}">{{ stage.name }}</li>{% endfor %}
+        </ul>
+      </div>
+      <div class="selectionComponent categoriesBlock col-md-4">
+        <p> <img src="./images/icon-3.png" alt=""> <span class="optionText">Choose what...</span></p>
+        <ul>
+          {% for category in categories %}<li class="id-{{ category.id }}">{{ category.name }}</li>{% endfor %}
+        </ul>
+      </div>
+
+    </div>
+    <div class="resultsBlock"></div>
+      <div class="results">
+        <p class="text-center">Please select the options above</p>
+      </div>
+    </div>
+    <footer></footer>
+
+    <script src="./bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="./js/main.js" charset="utf-8"></script>
+  </body>
+</html>

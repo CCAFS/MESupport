@@ -1,0 +1,75 @@
+.container {
+  /* width: 1000px; */
+}
+
+.selectionComponent p {
+  background: #EF9A9A url(../images/select-arrow.png) no-repeat;
+  background-size: 25px;
+  background-position: right;
+  background-position-x: 95%;
+  color: #fff;
+  padding: 10px 0 10px 12px;
+  cursor: pointer;
+  margin: 0;
+  color: #f1f1f1;
+  opacity: 0.9;
+}
+
+.selectionComponent p img{
+  width: 24px;
+}
+
+.selectionComponent p:hover {
+  background-color: #ea9090;
+}
+
+.selectionComponent p.selected {
+  background-color: #d47979;
+  color: #fff;
+  opacity: 1;
+}
+
+.selectionComponent ul{
+  display:none;
+  position:absolute;
+  margin: 0;
+  padding:0;
+  width: 90%;
+  opacity:0.95;
+  z-index: 10;
+  box-shadow: 0px 1px 5px #ccc;
+}
+
+.selectionComponent:hover ul{
+  display: block !important;
+}
+
+.selectionComponent ul li{
+  background:#fff;
+  list-style: none;
+  color: #009688;
+  padding: 5px 12px;
+  border: 1px solid #f3f3f3;
+  cursor:pointer;
+}
+.selectionComponent ul li:hover{
+  background: #f2f2f2;
+}
+
+.selectionComponent ul li.current{
+  background: #f1f1f1;
+  font-weight:bold;
+}
+
+
+.results {
+  background: #f1f1f1;
+  padding: 2em;
+  font-size: 1.4em;
+  font-weight: lighter;
+  color: #444;
+}
+
+span.optionText {
+  padding: 6px;
+}
