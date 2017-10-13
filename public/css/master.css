@@ -1,5 +1,19 @@
+/** General **/
+.loading {
+  width: 100%;
+  height: 100%;
+  background: url(../images/loading.gif) #FFF no-repeat 50%;
+  position: absolute;
+  z-index: 99;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+}
+
 .container {
-  /* width: 1000px; */
+  width: 960px;
+  min-height: 700px;
+  position: relative;
 }
 
 .selectionComponent p {
@@ -15,7 +29,7 @@
   opacity: 0.9;
 }
 
-.selectionComponent p img{
+.selectionComponent p img {
   width: 24px;
 }
 
@@ -29,38 +43,38 @@
   opacity: 1;
 }
 
-.selectionComponent ul{
-  display:none;
-  position:absolute;
+.selectionComponent ul {
+  display: none;
+  position: absolute;
   margin: 0;
-  padding:0;
+  padding: 0;
   width: 90%;
-  opacity:0.95;
+  /* opacity: 0.95; */
   z-index: 10;
   box-shadow: 0px 1px 5px #ccc;
 }
 
-.selectionComponent:hover ul{
+.selectionComponent:hover ul {
   display: block !important;
 }
 
-.selectionComponent ul li{
-  background:#fff;
+.selectionComponent ul li {
+  background: #fff;
   list-style: none;
   color: #009688;
   padding: 5px 12px;
   border: 1px solid #f3f3f3;
-  cursor:pointer;
+  cursor: pointer;
 }
-.selectionComponent ul li:hover{
+
+.selectionComponent ul li:hover {
   background: #f2f2f2;
 }
 
-.selectionComponent ul li.current{
+.selectionComponent ul li.current {
   background: #f1f1f1;
-  font-weight:bold;
+  font-weight: bold;
 }
-
 
 .results-selection {
   background: #f1f1f1;
@@ -79,6 +93,141 @@ span.optionText {
 .checkIcon {
   opacity: 0.2;
 }
+
 .checkIcon.checked {
   opacity: 1;
 }
+
+.results-query {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.results-query ul {
+  margin: 0;
+  padding: 0px 15px;
+  margin: 12px 0 50px 0;
+}
+
+.results-query ul li.guidelineHead{
+  list-style: none;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.results-query ul li.guideline {
+  background-color: #f1f1f1;
+  border: 1px solid #efefef;
+  border-radius: 2px;
+  padding: 6px 8px 6px 8px;
+  margin-bottom: 4px;
+  list-style: none;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.results-query ul li.guideline:hover{
+  background-color: #f5eeee;
+}
+
+.results-query ul li.guideline label {
+  cursor: pointer;
+  font-weight: normal;
+  padding-right: 119px;
+}
+
+.results-query ul li.guideline span.level {
+}
+
+.results-query ul li.guideline span.title {
+  padding-left: 5px;
+  color: #545454;
+  font-size: 0.95em;
+}
+
+
+.results-query .messageResult {
+  font-weight: lighter;
+  color: #969696;
+}
+
+
+/* Checkbox */
+
+.inputsFlat input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+.inputsFlat input[type="checkbox"] + .checkbox-label{
+  margin: 0 !important;
+  /* padding: 0px 10px !important; */
+}
+
+.inputsFlat input[type="checkbox"] + .checkbox-label:before {
+  content: '';
+  background: #f4f4f4;
+  border: 1px solid #b4b4b4;
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  position: relative;
+  /* top: -0.2em; */
+  margin-right: 0.3em;
+  vertical-align: top;
+  cursor: pointer;
+  text-align: center;
+  -webkit-transition: all 250ms ease;
+  transition: all 250ms ease;
+}
+.inputsFlat input[type="checkbox"]:checked + .checkbox-label:before {
+  background-color: #3197EE;
+  box-shadow: inset 0 0 0 4px #f4f4f4;
+}
+.inputsFlat input[type="checkbox"]:focus + .checkbox-label:before {
+  outline: none;
+  border-color: #3197EE;
+}
+
+.inputsFlat input[type="checkbox"]:disabled + .checkbox-label:before {
+  box-shadow: inset 0 0 0 4px #f4f4f4;
+  border-color: #b4b4b4;
+  background: #b4b4b4;
+}
+.inputsFlat input[type="checkbox"] + .checkbox-label:empty:before {
+  margin-right: 0;
+}
+
+
+/* Importance Levels colors*/
+
+.level {
+  border-radius: 6px;
+  padding: 0px 5px;
+  font-size: 12px;
+  text-align: center;
+  width: 95px;
+  margin: 3px;
+  position: absolute;
+  right: 7px;
+  top: 5px;
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+}
+
+.Very {
+    background-color: #c0504d;
+	 
+    color: #fff;
+}
+.Important {
+	background-color: #da9694;
+    color: #fff;
+}
+.Useful {
+	background-color: #e6b8b7;
+    color: #fff;
+	
+}
+.Optional{
+	background-color: #fff;
+    color: #222;
+}
+

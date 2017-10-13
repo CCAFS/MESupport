@@ -34,3 +34,23 @@ $app->get('/', function ($request, $response, $args) {
     'categories' => $categories
   ]);
 })->setName('index');
+
+
+// Render Twig template in route
+$app->get('/guidelines', function ($request, $response, $args) {
+  try{
+      // Get DB Object
+      $db = new db();
+      // Connect
+      $db = $db->connect();
+      // Get Roles
+      $stmt = $db->query("SELECT * FROM mesp_guidelines ORDER BY code");
+      $guidelines = $stmt->fetchAll(PDO::FETCH_OBJ);
+      $db = null;
+  } catch(PDOException $e){
+      echo '{"error": {"text": '.$e->getMessage().'}';
+  }
+  return $this->view->render($response, 'guidelines.html', [
+    'guidelines' => $guidelines
+  ]);
+})->setName('guidelines');

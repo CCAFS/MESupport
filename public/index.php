@@ -25,9 +25,9 @@ $container['view'] = function ($container) {
 /******************************************************************************/
 
 // Homepage
-require '../src/routes/index.php';
+require '../src/routes/application.php';
 
 // API Routes
-require '../src/routes/guidelines.php';
+require '../src/routes/api/guidelines.php';
 
 $app->run();

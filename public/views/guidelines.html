@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Monitoring & Evaluation Support Pack</title>
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./bower_components/animate.css/animate.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="./css/master.css">
+  </head>
+  <body>
+    <header></header>
+    <div class="container">
+      <table class="table  table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        {% for guideline in guidelines %}
+            <tr>
+              <td>{{ guideline.id }}</td>
+              <td>{{ guideline.code }} {{ guideline.name }}</td>
+              <td>{{ guideline.type }}</td>
+              <td>{{ guideline.source }}</td>
+            </tr>
+        {% endfor %}
+
+      </table>
+    </div>
+    <footer></footer>
+
+    <!-- Guideline template -->
+    <ul style="display:none">
+      <li id="guideline-template" class="guideline inputsFlat">
+        <input class="" type="checkbox" name="" id="">
+        <label class="checkbox-label" for=""><span class="title"></span></label>
+        <span class="level pull-right"></span>
+      </li>
+    </ul>
+
+    <script src="./bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="./js/main.js" charset="utf-8"></script>
+  </body>
+</html>
