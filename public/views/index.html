@@ -33,19 +33,19 @@
     </div>
 
     <div class="selectionBlock form-group row">
-      <div class="selectionComponent rolesBlock col-md-4">
+      <div class="selectionComponent rolesBlock col-sm-4">
         <p><img src="./images/icon-1.png" alt=""><span class="optionText">Choose a Role...</span></p>
         <ul>
           {% for role in roles %}<li class="type-role id-{{ role.id }}">{{ role.name }}</li>{% endfor %}
         </ul>
       </div>
-      <div class="selectionComponent stagesBlock col-md-4">
+      <div class="selectionComponent stagesBlock col-sm-4">
         <p><img src="./images/icon-2.png" alt=""><span class="optionText">Choose when...</span></p>
         <ul>
           {% for stage in stages %}<li class="type-stage id-{{ stage.id }}">{{ stage.name }}</li>{% endfor %}
         </ul>
       </div>
-      <div class="selectionComponent categoriesBlock col-md-4">
+      <div class="selectionComponent categoriesBlock col-sm-4">
         <p> <img src="./images/icon-3.png" alt=""><span class="optionText">Choose what...</span></p>
         <ul>
           {% for category in categories %}<li class="type-category id-{{ category.id }}">{{ category.id }}. {{ category.name }}</li>{% endfor %}
