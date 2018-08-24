@@ -1,49 +1,81 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Monitoring & Evaluation Support Pack</title>
-    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./bower_components/animate.css/animate.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <link rel="stylesheet" href="./css/master.css">
-  </head>
-  <body>
-    <header></header>
-    <div class="container">
-      <table class="table  table-striped table-bordered">
+
+<head>
+  <meta charset="utf-8">
+  <title>Monitoring & Evaluation Support Pack</title>
+  <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./bower_components/animate.css/animate.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="./css/master.css">
+</head>
+
+<body>
+  <header></header>
+  <div class="container">
+      <h2>M&E Guidelines</h2>
+      <div class="grayBox form-group">
+        <span class="badge level-4">4</span>  Very Important  |
+        <span class="badge level-3">3</span>  Important  |
+        <span class="badge level-2">2</span>  Useful  |
+        <span class="badge level-1">1</span>  Optional
+      </div>
+
+
+    <table class="table  table-striped table-bordered">
         <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Source</th>
-          </tr>
-        </thead>
-        {% for guideline in guidelines %}
             <tr>
-              <td>{{ guideline.id }}</td>
-              <td>{{ guideline.code }} {{ guideline.name }}</td>
-              <td>{{ guideline.type }}</td>
-              <td>{{ guideline.source }}</td>
+              <th colspan="2"></th>
+              {% for stage in stages %}
+                <th colspan="{{ roles|length }}" class="text-center">
+                  <small>{{ stage.name }}</small>
+                </th>
+              {% endfor %}
             </tr>
-        {% endfor %}
+            <tr>
+              <th>ID</th>
+              <th>Guideline</th>
+              {% for stage in stages %}
+                {% for role in roles %}<th title="{{ role.name }}" class="text-center"> <small>{{ role.acronym }}</small> </th>{% endfor %}
+              {% endfor %}
+            </tr>
+          </thead>
+      {% for guideline in guidelines %}
+      <tr class="active-{{ guideline.active }}">
+        <td>{{ guideline.id }} </td>
+        <td>
+          {% if guideline.active == false %}<s>{% endif %}
+            <span class="guidelineType guidelineType-{{ guideline.type }}"></span> <small>{{ guideline.code }} {{ guideline.name
+              }}</small>
+            {% if guideline.active == false %}</s>{% endif %} {% if guideline.source %}
+          <span class="pull-right">
+            {% if guideline.source starts with 'http' %}
+            <a href="{{guideline.source}}" target="_blank"> <span class="glyphicon glyphicon-link"></span> </a>
+            {% else %}
+            <a href="./data/{{guideline.source|replace(' ', '_')}}" target="_blank"> <span class="glyphicon glyphicon-download-alt"></span>
+              </a>
+            {% endif %}
+          </span>
+          {% endif %}
+        </td>
+        {% for stage in stages %}
+                {% for role in roles %}
+                  <td class="text-center importanceLevel GID-{{ guideline.id }} SID-{{ stage.id }} RID-{{ role.id }}">
 
-      </table>
-    </div>
-    <footer></footer>
+                  </td>
+                {% endfor %}
+              {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
 
-    <!-- Guideline template -->
-    <ul style="display:none">
-      <li id="guideline-template" class="guideline inputsFlat">
-        <input class="" type="checkbox" name="" id="">
-        <label class="checkbox-label" for=""><span class="title"></span></label>
-        <span class="level pull-right"></span>
-      </li>
-    </ul>
+  </div>
+  <footer></footer>
 
-    <script src="./bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
-    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
-    <script src="./js/main.js" charset="utf-8"></script>
-  </body>
+  <script src="./bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+  <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
+  <script src="./js/main.js" charset="utf-8"></script>
+  <script src="./js/guidelinesView.js" charset="utf-8"></script>
+</body>
+
 </html>

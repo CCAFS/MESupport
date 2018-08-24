@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Monitoring & Evaluation Support Pack</title>
-    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./bower_components/animate.css/animate.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <link rel="stylesheet" href="./css/master.css">
-  </head>
-  <body>
-    <header></header>
-    <div class="container">
+
+<head>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-48433431-1');
+  </script>
+
+
+  <meta charset="utf-8">
+  <title>Monitoring & Evaluation Support Pack</title>
+  <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./bower_components/animate.css/animate.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="./css/master.css">
+</head>
+
+<body>
+  <header></header>
+  <div class="container">
     <div class="loading" style="display:none"></div>
 
     <div class="searchBlock form-group row">
@@ -36,23 +48,27 @@
       <div class="selectionComponent rolesBlock col-sm-4">
         <p><img src="./images/icon-1.png" alt=""><span class="optionText">Choose a Role...</span></p>
         <ul>
-          {% for role in roles %}<li class="type-role id-{{ role.id }}">{{ role.name }}</li>{% endfor %}
+          {% for role in roles %}
+          <li class="type-role id-{{ role.id }}">{{ role.name }}</li>{% endfor %}
         </ul>
       </div>
       <div class="selectionComponent stagesBlock col-sm-4">
         <p><img src="./images/icon-2.png" alt=""><span class="optionText">Choose when...</span></p>
         <ul>
-          {% for stage in stages %}<li class="type-stage id-{{ stage.id }}">{{ stage.name }}</li>{% endfor %}
+          {% for stage in stages %}
+          <li class="type-stage id-{{ stage.id }}">{{ stage.name }}</li>{% endfor %}
         </ul>
       </div>
       <div class="selectionComponent categoriesBlock col-sm-4">
         <p> <img src="./images/icon-3.png" alt=""><span class="optionText">Choose what...</span></p>
         <ul>
-          {% for category in categories %}<li class="type-category id-{{ category.id }}">{{ category.id }}. {{ category.name }}</li>{% endfor %}
+          {% for category in categories %}
+          <li class="type-category id-{{ category.id }}">{{ category.id }}. {{ category.name }}</li>{% endfor %}
         </ul>
       </div>
     </div>
 
+    <!-- Profile selection for search -->
     <div class="resultsBlock">
       <div class="results-selection">
         <p class="text-center">Please select the <span class="nOptions">3</span> option(s) above</p>
@@ -62,30 +78,126 @@
           <img class="checkIcon check-category" src="./images/icon-3.png" alt="">
         </div>
       </div>
+
+
       <div class="results-query" style="display:none;">
-        <h3 class="blockTitle">Documents recomended</h3>
-        <i class="messageResult">
-          <b class="nDocuments"></b> Documents founded at <b class="stageText"></b> when is <b class="roleText"></b>
-        </i>
-        <ul>
-        </ul>
+        <!-- Search results -->
+        <div id="step1" class="col-xs-12">
+          <h3 class="blockTitle">Documents recomended</h3>
+          <i class="messageResult">
+            <b class="nDocuments"></b> Documents found for a <b class="roleText"></b> at <b class="stageText"></b> stage
+          </i>
+          <ul></ul>
+          <span class="error" style="display: none;">Please check a file.</span><br>
+          <a id="filtered-type" class="download 1 btn btn-primary">Download chosen documents <span class="glyphicon glyphicon-chevron-right"></span></a><br>
+          <br>
+        </div>
+
+        <!--Terms and conditions -->
+        <div id="step3" class="col-xs-12" style="display: none">
+          <h2 class="headTitle">Terms and conditions</h2>
+          <div id="step3-form" class="grayBox">
+            <p>To continue downloading your files, please first fill in your email and then some basic information. This
+              information will be used by CCAFS solely for impact assessment and CGIAR and Center level reporting purposes.
+              Filling it in will greatly help us to track the use of the portal and keep improving it. This portal provides
+              data to a very large community of users and improving its usability and efficiency is a key aspect we work
+              on continuously. However, you may click on skip to download links directly.
+            </p>
+            <div class="form-group">
+              <label for="mail">Email:</label>
+              <input type="text" id="mail" class="form-control" name="mail" value="" /> <br>
+              <span class="error" style="display: none;">Please enter a valid email address.</span>
+            </div>
+          </div>
+          <br>
+          <a href="" class="download 4 btn btn-primary"> <span class="glyphicon glyphicon-chevron-left"></span> Go Back</a>
+          <a class="download 2 btn btn-primary">Next <span class="glyphicon glyphicon-chevron-right"></span> </a>
+          <a class="skip 2 btn btn-info pull-right">Skip</a>
+        </div>
+        <!--end terms and conditions -->
+
+        <!--Terms and conditions next-->
+        <div id="step4" class="col-xs-12" style="display: none">
+          <h2 class="headTitle">Terms and conditions</h2>
+          <div id="step4-form" class="grayBox">
+            <div class="form-group">
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for='first_name'>First name: <input type="text" id="first_name" class="form-control" name="first_name"
+                      value="" /></label>
+                </div>
+                <div class="col-md-6">
+                  <label for='last_name'>Last name: <input type="text" id="last_name" class="form-control" name="last_name"
+                      value="" /></label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for='institute-name'>Institute name: <input type="text" id="institute-name" class="form-control" name="institute-name"
+                    value="" /></label>
+              </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                  <h4 class="headTitle">Region(s) of your research interest: </h4>
+                  {% for region in regions %}
+                    <div class="inputsFlat">
+                      <input class="" type="checkbox" name="research-regions" id="l{{ loop.index }}" value="{{ region.id }}">
+                      <label class="checkbox-label" for="l{{ loop.index }}"><span class="title">{{ region.name }}</span></label>
+                    </div>
+                  {% endfor %}
+                </div>
+                <div class="col-md-6">
+                  <h4 class="headTitle">Region(s) where your institute is located: </h4>
+                  {% for region in regions %}
+                    <div class="inputsFlat">
+                      <input class="" type="checkbox" name="institute-regions" id="i{{ loop.index }}" value="{{ region.id }}">
+                      <label class="checkbox-label" for="i{{ loop.index }}"><span class="title">{{ region.name }}</span></label>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div> 
+            <div class="form-group">
+              <label for="use">Intended use of data: </label>
+              <textarea id="use" class="form-control" name="use" cols="70" rows="3"></textarea>
+            </div>
+            <!-- Hidden inputs -->
+            <input type="hidden" id="user-id" name="userId" value="1">
+            <span class="error" style="display: none;"></span>
+            <br><a class="download 3 btn btn-primary">Next <span class="glyphicon glyphicon-chevron-right"></span> </a>
+          </div>
+        </div>
+        <!--end terms and conditions next-->
+
+
+
+        <!--Download step-->
+        <div id="step5" class="col-xs-12" style="display: none">
+          <h2 class="headTitle">Download</h2>
+          <div id="result"></div>
+          <div id="guidelines">
+            <ul></ul>
+          </div>
+            <a class="zipfileDownload btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span> Download [<span class="nfiles">0</span>] Files</a>
+            <a href="" class="download 4 btn btn-info">New search</a>
+        </div>
+        <!--end download step-->
+
       </div>
 
+      <footer></footer>
 
-    </div>
-    <footer></footer>
+      <!-- Guideline template -->
+      <ul style="display:none">
+        <li id="guideline-template" class="guideline inputsFlat">
+          <input class="" type="checkbox" name="check-guidelines" id="">
+          <label class="checkbox-label" for=""><span class="title"></span></label>
+          <span class="level pull-right"></span>
+        </li>
+      </ul>
 
-    <!-- Guideline template -->
-    <ul style="display:none">
-      <li id="guideline-template" class="guideline inputsFlat">
-        <input class="" type="checkbox" name="" id="">
-        <label class="checkbox-label" for=""><span class="title"></span></label>
-        <span class="level pull-right"></span>
-      </li>
-    </ul>
+      <script src="./bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+      <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
+      <script src="./js/main.js" charset="utf-8"></script>
+</body>
 
-    <script src="./bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
-    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
-    <script src="./js/main.js" charset="utf-8"></script>
-  </body>
 </html>
