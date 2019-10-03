@@ -90,12 +90,35 @@ span.optionText {
   padding: 6px;
 }
 
+#step3-form {
+  padding: 1.5em;
+}
+
 .checkIcon {
   opacity: 0.2;
 }
 
 .checkIcon.checked {
   opacity: 1;
+}
+
+.error {
+  font-size: 13px;
+  line-height: 13px;
+}
+
+
+.grayBox {
+  background-color: #f1f1f1;
+  /* height: 100%; */
+  padding: 8px;
+}
+
+.grayBoxTerms {
+  background-color: #f1f1f1;
+  /* height: 100%; */
+  padding: 1em;
+  width: 95%;
 }
 
 .results-query {
@@ -139,7 +162,7 @@ span.optionText {
 }
 
 .results-query ul li.guideline span.title {
-  padding-left: 5px;
+  padding-left: 28px;
   color: #545454;
   font-size: 0.95em;
 }
@@ -150,7 +173,6 @@ span.optionText {
   color: #969696;
 }
 
-
 /* Checkbox */
 
 .inputsFlat input[type="checkbox"] {
@@ -159,6 +181,8 @@ span.optionText {
 }
 .inputsFlat input[type="checkbox"] + .checkbox-label{
   margin: 0 !important;
+  font-weight: normal;
+  cursor: pointer;
   /* padding: 0px 10px !important; */
 }
 
@@ -170,7 +194,6 @@ span.optionText {
   width: 1.2em;
   height: 1.2em;
   position: relative;
-  /* top: -0.2em; */
   margin-right: 0.3em;
   vertical-align: top;
   cursor: pointer;
@@ -197,6 +220,28 @@ span.optionText {
 }
 
 
+#guidelines li {
+  background-color: #f1f1f1;
+  padding: 8px 0 5px 39px;
+  background-position: 12px;
+  margin-bottom: 2px;
+}
+
+li.guideline.type-0 {
+  background: url('../images/type-0.png') no-repeat;
+  background-position: 36px 8px;
+}
+
+li.guideline.type-1 {
+  background: url('../images/type-1.png') no-repeat;
+  background-position: 33px 8px;
+}
+
+#guidelines {
+  margin-bottom: 14px;
+}
+
+
 /* Importance Levels colors*/
 
 .level {
@@ -212,22 +257,79 @@ span.optionText {
   box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
 }
 
-.Very {
+.Very, .level-4 {
     background-color: #c0504d;
 	 
     color: #fff;
 }
-.Important {
+.Important, .level-3 {
 	background-color: #da9694;
     color: #fff;
 }
-.Useful {
+.Useful, .level-2 {
 	background-color: #e6b8b7;
     color: #fff;
 	
 }
-.Optional{
+.Optional, .level-1{
 	background-color: #fff;
     color: #222;
 }
 
+.level-undefined {
+  background-color: #fffbd8;
+  color: #222;
+}
+
+span.guidelineType {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+span.guidelineType-0 {
+  background: url('../images/type-0.png') no-repeat;
+}
+
+span.guidelineType-1 {
+  background: url('../images/type-1.png') no-repeat;
+}
+
+tr.active-0 {
+  opacity: 0.35;
+}
+
+#step4-form {
+  padding: 19px 43px;
+  /* margin: 0px 25px 25px 25px; */
+  /* width: 560px; */
+  /* height: auto; */
+  /* background: #F1F1F1; */
+}
+
+.headTitle {
+  font-family: 'Open Sans';
+  font-weight: lighter;
+}
+
+span.optionText {
+  font-family: 'Open Sans', sans-serif;
+  padding: 6px;
+}
+
+.results-query ul li.guideline span.title {
+  color: #545454;
+  font-size: 0.95em;
+}
+
+tr.active-0 {
+  opacity: 0.35;
+}
+tr.active-0 td {
+}
+
+td.importanceLevel {
+  width: 35px;
+}
