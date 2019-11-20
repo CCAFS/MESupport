@@ -2,7 +2,9 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-// Render Twig template in route
+
+
+// Home
 $app->get('/', function ($request, $response, $args) {
   // Managers
   $supportPackService = new \services\SupportPackService();
@@ -17,7 +19,7 @@ $app->get('/', function ($request, $response, $args) {
 })->setName('index');
 
 
-// Render Twig template in route
+// Guidelines
 $app->get('/guidelines', function ($request, $response, $args) {
   // Managers
   $supportPackService = new \services\SupportPackService();

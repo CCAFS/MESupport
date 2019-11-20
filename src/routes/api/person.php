@@ -51,22 +51,33 @@ $app->post('/api/setDownload', function(Request $request, Response $response){
       }
     }
 
-    // Set Download
-    $downloadId = $supportPackService->setDownload($userId, $instituteName, $use);
+    if(is_numeric($userId)){
+      // Set Download
+      $downloadId = $supportPackService->setDownload($userId, $instituteName, $use);
 
-    // Set Guidelines downloaded
-    foreach ($guideSelected as $guideId) {
-      $supportPackService->setDownloadedGuideline($downloadId, $guideId);
+      if(is_numeric($downloadId)){
+        // Set Guidelines downloaded
+        foreach ($guideSelected as $guideId) {
+          $supportPackService->setDownloadedGuideline($downloadId, $guideId);
+        }
+
+        // Set region(s) where your institute is located download
+        foreach ($instituteRegions as $regionId) {
+          $supportPackService->setDownloadedRegion($downloadId, $regionId, "instituteRegion");
+        }
+
+        // Set region(s) of your research interest download
+        foreach ($researchRegions as $regionId) {
+          $supportPackService->setDownloadedRegion($downloadId, $regionId, "researchRegion");
+        }
+
+        echo "Download ID: ".$downloadId;
+      }else{
+        echo "Invalid Download ID: ".$downloadId;
+      }
     }
 
-    // Set region(s) where your institute is located download
-    foreach ($instituteRegions as $regionId) {
-      $supportPackService->setDownloadedRegion($downloadId, $regionId, "instituteRegion");
-    }
 
-    // Set region(s) of your research interest download
-    foreach ($researchRegions as $regionId) {
-      $supportPackService->setDownloadedRegion($downloadId, $regionId, "researchRegion");
-    }
+
 
 });

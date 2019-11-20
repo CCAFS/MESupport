@@ -94,6 +94,7 @@ class SupportPackService {
         $db = null;
         return $person->id;
     } catch(PDOException $e){
+        return false;
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
   }
@@ -120,6 +121,7 @@ class SupportPackService {
         $db = null;
         return $download->id;
     } catch(PDOException $e){
+        return false;
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
   }
@@ -137,13 +139,15 @@ class SupportPackService {
         $stmt->bindParam(':download_id',    $downloadId);
         $stmt->bindParam(':guideline_id',   $guideId);
         $stmt->execute();
+        return true;
     } catch(PDOException $e){
+        return false;
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
   }
 
   // Set Downloaded Region
-  public function setDownloadedRegion($downloadId, $guideId, $scope){
+  public function setDownloadedRegion($downloadId, $regionId, $scope){
     $sqlQuery = "INSERT INTO mesp_download_regions (download_id, region_id, region_scope)
                   VALUES (:download_id, :region_id, :scope)";
     try{
@@ -156,7 +160,9 @@ class SupportPackService {
         $stmt->bindParam(':region_id',   $regionId);
         $stmt->bindParam(':scope', $scope);
         $stmt->execute();
+        return true;
     } catch(PDOException $e){
+        return false;
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
   }
