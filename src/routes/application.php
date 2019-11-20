@@ -4,75 +4,29 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 // Render Twig template in route
 $app->get('/', function ($request, $response, $args) {
-
-  $regions = array();
-  $roles = array();
-  $stages = array();
-  $categories = array();
-  try{
-      // Get DB Object
-      $db = new db();
-      // Connect
-      $db = $db->connect();
-
-      // Get Roles
-      $stmt = $db->query("SELECT * FROM mesp_roles");
-      $roles = $stmt->fetchAll(PDO::FETCH_OBJ);
-      // Get Stages
-      $stmt = $db->query("SELECT * FROM mesp_stages");
-      $stages = $stmt->fetchAll(PDO::FETCH_OBJ);
-      // Get Categories
-      $stmt = $db->query("SELECT * FROM mesp_categories");
-      $categories = $stmt->fetchAll(PDO::FETCH_OBJ);
-      // Get Regions
-      $stmt = $db->query("SELECT * FROM mesp_regions");
-      $regions = $stmt->fetchAll(PDO::FETCH_OBJ);
-
-      $db = null;
-  } catch(PDOException $e){
-      echo '{"error": {"text": '.$e->getMessage().'}';
-  }
+  // Managers
+  $supportPackService = new \services\SupportPackService();
 
   return $this->view->render($response, 'index.html', [
     'title' => "",
-    'roles' => $roles,
-    'stages' => $stages,
-    'categories' => $categories,
-    'regions' => $regions,
+    'roles' => $supportPackService->getRoles(),
+    'stages' => $supportPackService->getStages(),
+    'categories' => $supportPackService->getCategories(),
+    'regions' => $supportPackService->getRegions(),
   ]);
 })->setName('index');
 
 
 // Render Twig template in route
 $app->get('/guidelines', function ($request, $response, $args) {
-  try{
-      // Get DB Object
-      $db = new db();
-      // Connect
-      $db = $db->connect();
-      // Get Roles
-      $stmt = $db->query("SELECT * FROM mesp_roles");
-      $roles = $stmt->fetchAll(PDO::FETCH_OBJ);
-      // Get Stages
-      $stmt = $db->query("SELECT * FROM mesp_stages");
-      $stages = $stmt->fetchAll(PDO::FETCH_OBJ);
-      // Get Categories
-      $stmt = $db->query("SELECT * FROM mesp_categories");
-      $categories = $stmt->fetchAll(PDO::FETCH_OBJ);
-      // Get Guidelines
-      $stmt = $db->query("SELECT * FROM mesp_guidelines ORDER BY code");
-      $guidelines = $stmt->fetchAll(PDO::FETCH_OBJ);
+  // Managers
+  $supportPackService = new \services\SupportPackService();
 
-
-      $db = null;
-  } catch(PDOException $e){
-      echo '{"error": {"text": '.$e->getMessage().'}';
-  }
   return $this->view->render($response, 'guidelines.html', [
-    'guidelines' => $guidelines,
-    'roles' => $roles,
-    'stages' => $stages,
-    'categories' => $categories
+    'guidelines' => $supportPackService->getGuidelines(),
+    'roles' => $supportPackService->getRoles(),
+    'stages' => $supportPackService->getStages(),
+    'categories' => $supportPackService->getCategories()
   ]);
 })->setName('guidelines');
 

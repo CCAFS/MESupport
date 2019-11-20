@@ -5,7 +5,19 @@ use \Psr\Http\Message\ResponseInterface as Response;
 require '../vendor/autoload.php';
 require '../src/config/db.php';
 
-$app = new \Slim\App;
+// Loading services
+require_once('../src/services/SupportPackService.php');
+
+
+$settings = [
+    'settings' => [
+        // Slim Settings
+        'determineRouteBeforeAppMiddleware' => false,
+        'displayErrorDetails' => true,
+    ],
+];
+
+$app = new \Slim\App($settings);
 
 /******************************************************************************/
 // Get container

@@ -15,40 +15,18 @@ $app->add(function ($req, $res, $next) {
 $app->get('/api/getPersonInfo/{email}', function(Request $request, Response $response){
     // Set JSON Header
     $response->withHeader('Content-Type', 'application/json');
+    // Managers
+    $supportPackService = new \services\SupportPackService();
 
     $email = $request->getAttribute('email');
-
-    $sql = "SELECT
-            -- Person
-            dp.id, dp.first_name, dp.last_name, dp.registered, dp.email,
-            -- Download
-            dd.institute, dd.date
-            FROM
-            mesp_person dp,
-            mesp_download dd
-            WHERE
-            -- Person Filter
-            dp.email = '$email'
-            AND dp.id = dd.user_id
-            ORDER BY dd.id DESC limit 1;
-    ";
-
-    try{
-        // Get DB Object
-        $db = new db();
-        // Connect
-        $db = $db->connect();
-        $stmt = $db->query($sql);
-        $person = $stmt->fetch(PDO::FETCH_OBJ);
-        $db = null;
-        echo json_encode($person);
-    } catch(PDOException $e){
-        echo '{"error": {"text": '.$e->getMessage().'}';
-    }
+    echo json_encode($supportPackService->getPersonInfo($email));
 });
 
 // Set download
 $app->post('/api/setDownload', function(Request $request, Response $response){
+    // Managers
+    $supportPackService = new \services\SupportPackService();
+
     // Set JSON Header
     $response->withHeader('Content-Type', 'application/json');
 
@@ -68,131 +46,27 @@ $app->post('/api/setDownload', function(Request $request, Response $response){
 
     // Set userId if does not exists
     if($userId == ""){
-        if(($first_name != "") && ($last_name != "") && ($email != "")){
-            $sql = "INSERT INTO mesp_person (first_name,last_name,email)
-                    VALUES (:first_name,:last_name,:email)";
-            try{
-                // Get DB Object
-                $db = new db();
-                // Connect
-                $db = $db->connect();
-                $stmt = $db->prepare($sql);
-                $stmt->bindParam(':first_name', $first_name);
-                $stmt->bindParam(':last_name',  $last_name);
-                $stmt->bindParam(':email',      $email);
-                $stmt->execute();
-
-                // Geting the new user ID
-                $sql = "SELECT * FROM mesp_person WHERE email = '$email'";
-                $stmt = $db->query($sql);
-                $person = $stmt->fetch(PDO::FETCH_OBJ);
-                $db = null;
-                $userId = $person->id;
-
-
-                array_push($messages, "Person ID=".$userId." was added successfully");
-
-            } catch(PDOException $e){
-                array_push($messages, "PDOException: ".$e->getMessage() );
-            }
-        }else{
-            array_push($messages, "Invalid person information");
-        }
-    }else{
-        array_push($messages, "Person ID=".$userId." already exists in the DB");
+      if(($first_name != "") && ($last_name != "") && ($email != "")){
+        $userId = $supportPackService->createPerson($first_name, $last_name, $email);
+      }
     }
 
     // Set Download
-    $sql = "INSERT INTO mesp_download (user_id, institute, intended_use )
-            VALUES (:user_id,:institute,:intended_use)";
-    try{
-        // Get DB Object
-        $db = new db();
-        // Connect
-        $db = $db->connect();
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':user_id',        $userId);
-        $stmt->bindParam(':institute',      $instituteName);
-        $stmt->bindParam(':intended_use',   $use);
-        $stmt->execute();
-
-        // Geting the last download
-        $sql = "SELECT * FROM mesp_download WHERE user_id = '$userId' ORDER BY date DESC";
-        $stmt = $db->query($sql);
-        $download = $stmt->fetch(PDO::FETCH_OBJ);
-        $downloadId = $download->id;
-        //$db = null;
-
-        array_push($messages, "Download ID=".$downloadId." was added successfully");
-
-    } catch(PDOException $e){
-        array_push($messages, "PDOException: ".$e->getMessage() );
-    }
+    $downloadId = $supportPackService->setDownload($userId, $instituteName, $use);
 
     // Set Guidelines downloaded
     foreach ($guideSelected as $guideId) {
-        $sql = "INSERT INTO mesp_download_guidelines (download_id, guideline_id)
-                VALUES (:download_id, :guideline_id)";
-        try{
-            // Get DB Object
-            $db = new db();
-            // Connect
-            $db = $db->connect();
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':download_id',    $downloadId);
-            $stmt->bindParam(':guideline_id',   $guideId);
-            $stmt->execute();
-
-            array_push($messages, "Guideline ID downloaded=".$guideId );
-
-        } catch(PDOException $e){
-            array_push($messages, "PDOException: ".$e->getMessage() );
-        }
+      $supportPackService->setDownloadedGuideline($downloadId, $guideId);
     }
 
     // Set region(s) where your institute is located download
     foreach ($instituteRegions as $regionId) {
-        $sql = "INSERT INTO mesp_download_regions (download_id, region_id, region_scope)
-                VALUES (:download_id, :region_id, 'instituteRegion')";
-        try{
-            // Get DB Object
-            $db = new db();
-            // Connect
-            $db = $db->connect();
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':download_id',    $downloadId);
-            $stmt->bindParam(':region_id',   $regionId);
-            $stmt->execute();
-
-            array_push($messages, "Located Region ID downloaded=".$regionId );
-
-        } catch(PDOException $e){
-            array_push($messages, "PDOException: ".$e->getMessage() );
-        }
+      $supportPackService->setDownloadedRegion($downloadId, $regionId, "instituteRegion");
     }
 
     // Set region(s) of your research interest download
     foreach ($researchRegions as $regionId) {
-        $sql = "INSERT INTO mesp_download_regions (download_id, region_id, region_scope)
-                VALUES (:download_id, :region_id, 'researchRegion')";
-        try{
-            // Get DB Object
-            $db = new db();
-            // Connect
-            $db = $db->connect();
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':download_id',    $downloadId);
-            $stmt->bindParam(':region_id',   $regionId);
-            $stmt->execute();
-
-            array_push($messages, "Research Region ID downloaded=".$regionId );
-
-        } catch(PDOException $e){
-            array_push($messages, "PDOException: ".$e->getMessage() );
-        }
+      $supportPackService->setDownloadedRegion($downloadId, $regionId, "researchRegion");
     }
-
-
-    echo json_encode($messages);
 
 });
