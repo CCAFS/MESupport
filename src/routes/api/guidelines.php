@@ -14,7 +14,7 @@ $app->add(function ($req, $res, $next) {
             ->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-            ->withHeader('Content-Type', 'application/json');
+            //->withHeader('Content-Type', 'application/json');
 });
 
 
@@ -30,8 +30,9 @@ $app->get('/api/guidelinesLevels/{role}/{stage}/{category}', function(Request $r
     $c= $request->getAttribute('category');
 
 
-
-    echo json_encode($supportPackService->getGuidelinesByRoleStageCategory($r, $s, $c));
+    return $response->withStatus(200)
+        ->withHeader('Content-Type', 'application/json; charset=utf-8')
+        ->write($supportPackService->getGuidelinesByRoleStageCategory($r, $s, $c));
 });
 
 
