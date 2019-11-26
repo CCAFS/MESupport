@@ -26,10 +26,9 @@ $app->get('/api/guidelinesLevels/{role}/{stage}/{category}', function(Request $r
     $s= $request->getAttribute('stage');
     $c= $request->getAttribute('category');
 
-
     return $response->withStatus(200)
         ->withHeader('Content-Type', 'application/json; charset=utf-8')
-        ->write($supportPackService->getGuidelinesByRoleStageCategory($r, $s, $c));
+        ->write(json_encode($supportPackService->getGuidelinesByRoleStageCategory($r, $s, $c)));
 });
 
 
