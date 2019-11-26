@@ -13,14 +13,12 @@ $app->add(function ($req, $res, $next) {
     return $response
             ->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
             //->withHeader('Content-Type', 'application/json');
 });
 
 
 $app->get('/api/guidelinesLevels/{role}/{stage}/{category}', function(Request $request, Response $response){
-    // Set JSON Header
-    $response->withHeader('Content-Type', 'application/json');
 
     // Managers
     $supportPackService = new \services\SupportPackService();
