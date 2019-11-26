@@ -18,7 +18,9 @@ $app->add(function ($req, $res, $next) {
 });
 
 $app->get('/api/guidelinesLevels/{role}/{stage}/{category}', function(Request $request, Response $response){
-
+    // Set JSON Header
+    $response->withHeader('Content-Type', 'application/json');
+    
     // Managers
     $supportPackService = new \services\SupportPackService();
 
