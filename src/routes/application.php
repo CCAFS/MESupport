@@ -32,6 +32,19 @@ $app->get('/guidelines', function ($request, $response, $args) {
   ]);
 })->setName('guidelines');
 
+// Guidelines
+$app->get('/admin', function ($request, $response, $args) {
+  // Managers
+  $supportPackService = new \services\SupportPackService();
+
+  return $this->view->render($response, 'admin.html', [
+    'guidelines' => $supportPackService->getGuidelines(),
+    'roles' => $supportPackService->getRoles(),
+    'stages' => $supportPackService->getStages(),
+    'categories' => $supportPackService->getCategories()
+  ]);
+})->setName('admin');
+
 // Render Twig template in route
 $app->get('/stats', function ($request, $response, $args) {
   return $this->view->render($response, 'stats.html');

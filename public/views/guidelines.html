@@ -50,9 +50,9 @@
             {% if guideline.active == false %}</s>{% endif %} {% if guideline.source %}
           <span class="pull-right">
             {% if guideline.source starts with 'http' %}
-            <a href="{{guideline.source}}" target="_blank"> <span class="glyphicon glyphicon-link"></span> </a>
+            <a href="{{guideline.source |trim }}" target="_blank"> <span class="glyphicon glyphicon-link"></span> </a>
             {% else %}
-            <a href="./data/{{guideline.source|replace(' ', '_')}}" target="_blank"> <span class="glyphicon glyphicon-download-alt"></span>
+            <a href="./{{ (guideline.source| trim) | replace(' ', '_') }}" target="_blank"> <span class="glyphicon glyphicon-download-alt"></span>
               </a>
             {% endif %}
           </span>

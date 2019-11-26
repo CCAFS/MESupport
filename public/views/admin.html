@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Monitoring & Evaluation Support Pack</title>
+  <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./bower_components/animate.css/animate.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="./css/master.css">
+</head>
+
+<body>
+  <header></header>
+  <div class="container">
+      <h2>M&E Support Pack Admin</h2>
+
+
+
+      {% for guideline in guidelines %}
+        <div class="borderBox">
+          {{ guideline.code }} {{ guideline.name }}
+        </div>
+      {% endfor %}
+
+
+  </div>
+  <footer></footer>
+
+  <script src="./bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+  <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
+  <script src="./js/main.js" charset="utf-8"></script>
+  <!-- <script src="./js/guidelinesView.js" charset="utf-8"></script> -->
+</body>
+
+</html>

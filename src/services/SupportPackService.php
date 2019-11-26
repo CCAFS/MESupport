@@ -17,19 +17,60 @@ class SupportPackService {
 
   // Get Guideline Levels
   public function getGuidelinesByRoleStageCategory($role, $stage, $category){
-    $sqlQuery = "SELECT g.id,g.code,g.name,g.type,g.source, il.importance_level
-            FROM mesp_importance_levels il
-            INNER JOIN mesp_categories c ON il.category_id = c.id
-            INNER JOIN mesp_stages s ON il.stage_id = s.id
-            INNER JOIN mesp_roles r ON il.role_id = r.id
-            INNER JOIN mesp_guidelines g ON il.guideline_id = g.id
-            WHERE il.role_id = ".$role." and il.stage_id= ".$stage." and il.category_id=".$category." and g.active = 1
-            ORDER BY g.code";
+    $sqlQuery = 'SELECT
+              	g.id,
+                g.`code`,
+                (REPLACE(g.`code`, ".", "")) as "composedCode",
+	              g.`name`,
+              	g.type,
+              	TRIM(g.source) AS "source",
+              	il.importance_level as "level",
+              	(
+              		CASE il.importance_level
+              		WHEN 4 THEN "Very Important"
+              		WHEN 3 THEN "Important"
+              		WHEN 2 THEN "Useful"
+              		WHEN 1 THEN "Optional"
+              		END
+              	) AS "importance_level"
+              FROM
+              	mesp_importance_levels il
+              INNER JOIN mesp_categories c ON il.category_id = c.id
+              INNER JOIN mesp_stages s ON il.stage_id = s.id
+              INNER JOIN mesp_roles r ON il.role_id = r.id
+              INNER JOIN mesp_guidelines g ON il.guideline_id = g.id
+              WHERE
+              	il.role_id = '.$role.'
+              AND il.stage_id = '.$stage.'
+              AND il.category_id = '.$category.'
+              AND g.active = 1
+              ORDER BY
+              	composedCode';
     return $this->getQueryFetchAll($sqlQuery);
   }
 
   public function getImportanceLevel($gId, $sId, $rId){
-    $sqlQuery = "SELECT * FROM mesp_importance_levels where guideline_id= ".$gId." and stage_id = ".$sId." and role_id = ".$rId.";";
+    $sqlQuery = 'SELECT
+                	id_importance_level,
+                	guideline_id,
+                	category_id,
+                	stage_id,
+                	role_id,
+                	importance_level as "level"
+                	, (
+                		CASE importance_level
+                		WHEN 4 THEN "Very Important"
+                		WHEN 3 THEN "Important"
+                		WHEN 2 THEN "Useful"
+                		WHEN 1 THEN "Optional"
+                		END
+                	) AS "importance_level"
+                FROM
+                	mesp_importance_levels
+                WHERE
+                	guideline_id = '.$gId.'
+                AND stage_id = '.$sId.'
+                AND role_id = '.$rId.';';
     return $this->getQueryFetch($sqlQuery);
   }
 
