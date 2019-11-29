@@ -415,7 +415,17 @@ function getWindowHeight() {
 function updateDataHeight() {
   // Update the attribute data-height in the body tag
   $("body").attr("data-height", getWindowHeight());
+
+  var offsetHeight = document.getElementsByTagName('body')[0].offsetHeight;
+  sendParentMessage({
+    eventName: "updateHeight",
+    data: offsetHeight
+  });
 }
+
+function sendParentMessage(msg){
+    window.parent.postMessage(msg, '*');
+  }
 
 jQuery.fn.classParam = function (cssName) {
   return getClassParameter(this, cssName)

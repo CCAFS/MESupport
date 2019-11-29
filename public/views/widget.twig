@@ -1,0 +1,96 @@
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.SupportPackWidget = factory());
+}(this, (function () { 'use strict';
+
+  var SupportPackWidget = function SupportPackWidget(element, userOptions) {
+    if ( userOptions === void 0 ) userOptions = {};
+
+    if (typeof element === 'string') {
+      // Get element
+      element = document.getElementById(element);
+    }
+
+    if (!element || !element.nodeName) {
+      throw new Error('no element is specified to initialize the widget');
+    }
+
+    this.element = element;
+    this.iframe;
+    this.userOptions = userOptions;
+    this.hostOrigin = document.location.origin;
+		this.baseURL = '{{ baseURL }}';
+		this.baseOrigin = '{{ baseOrigin  }}';
+
+    // Initialize
+    this.init();
+  }
+
+  // Init
+  SupportPackWidget.prototype.init = function init () {
+    var widget = this;
+    var section = widget.userOptions.currentSection || '';
+    // Create Iframe
+    widget.createIframe(widget.baseURL + '/'+ section +'?embed=true&hostOrigin='+ widget.hostOrigin);
+  };
+
+  // Create Iframe Item
+  SupportPackWidget.prototype.createIframe = function createIframe (url) {
+    var widget = this;
+    widget.iframe = document.createElement('iframe');
+    widget.iframe.setAttribute('id', 'iframe-supportPack');
+		widget.iframe.setAttribute('scrolling', 'no');
+    widget.iframe.setAttribute('src', url);
+    widget.iframe.style.width = "100%";
+    widget.iframe.style.height = "100%";
+		widget.iframe.style.overflow = "hidden"
+    widget.iframe.frameBorder = 0;
+    // Add iframe item
+    widget.element.appendChild(widget.iframe);
+
+		// Add iframe onload Functions
+		widget.iframe.onload = function(){
+
+		};
+
+    // Listen to message from embed iframe window
+    bindEvent(window, 'message', function (e){
+      if(e.origin == widget.baseOrigin){
+        var o = e.data;
+        if (o.eventName == 'updateHeight'){
+					console.log(o.data);
+          widget.setIframeHeight(o.data);
+        }
+      }
+    });
+  };
+
+
+  // Update Element Height
+  SupportPackWidget.prototype.setIframeHeight = function setIframeHeight (height) {
+    this.iframe.style.height = (height) +"px";
+  };
+
+  function sendIframeMessage(iframe, msg){
+    iframe.contentWindow.postMessage(msg, "*");
+  }
+
+  function bindEvent(element, eventName, eventHandler) {
+    if (element.addEventListener){
+        element.addEventListener(eventName, eventHandler, false);
+    } else if (element.attachEvent) {
+        element.attachEvent('on' + eventName, eventHandler);
+    }
+  }
+
+  function unBindEvent(element, eventName, eventHandler) {
+    if (element.removeEventListener) {
+      element.removeEventListener(eventName, eventHandler);
+    } else if (x.detachEvent) {
+      element.detachEvent(eventName, eventHandler);
+    }
+  }
+
+  return SupportPackWidget;
+})));

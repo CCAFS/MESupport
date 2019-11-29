@@ -50,6 +50,23 @@ $app->get('/stats', function ($request, $response, $args) {
   return $this->view->render($response, 'stats.html');
 })->setName('stats');
 
+// Widget
+$app->get('/widget/main.js', function ($request, $response, $args) {
+
+  $requestScheme = $this->get('environment')['REQUEST_SCHEME'];
+  $httpHost = $this->get('environment')['HTTP_HOST'];
+  $basePath = $request->getUri()->getBasePath();
+  $baseOrigin = $requestScheme. "://". $httpHost;
+  $baseURL = $baseOrigin . "" .$basePath;
+
+  $this->view->render($response,  'widget.twig', [
+    'sectionsJson' => json_encode($sections),
+    'baseOrigin' => $baseOrigin,
+    'baseURL' => $baseURL
+  ]);
+
+  return $response->withHeader('Content-type', 'text/javascript');
+})->setName('widget');
 
 /******************************* FUNCTIONS *******************************/
 

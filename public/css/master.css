@@ -12,7 +12,7 @@
 
 .container {
   width: 960px;
-  min-height: 700px;
+  min-height: 400px;
   position: relative;
 }
 
@@ -259,7 +259,7 @@ li.guideline.type-1 {
 
 .Very, .level-4 {
     background-color: #c0504d;
-	 
+
     color: #fff;
 }
 .Important, .level-3 {
@@ -269,7 +269,7 @@ li.guideline.type-1 {
 .Useful, .level-2 {
 	background-color: #e6b8b7;
     color: #fff;
-	
+
 }
 .Optional, .level-1{
 	background-color: #fff;
