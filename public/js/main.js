@@ -187,7 +187,7 @@ function selectAnOption() {
           // Create guideline from template
           var $guideline = $('#guideline-template').clone(true).removeAttr('id');
           // Add guideline title
-          $guideline.find('.title').text(guideline.code + ' ' + guideline.name);
+          $guideline.find('.title').text(guideline.name);
           // Add importance level and the style
           $guideline.find('.level').text(guideline.importance_level);
           $guideline.find('.level').addClass(guideline.importance_level);

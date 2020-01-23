@@ -45,7 +45,7 @@
         <td>{{ guideline.id }} </td>
         <td>
           {% if guideline.active == false %}<s>{% endif %}
-            <span class="guidelineType guidelineType-{{ guideline.type }}"></span> <small>{{ guideline.code }} {{ guideline.name
+            <span class="guidelineType guidelineType-{{ guideline.type }}"></span> <small>{{ guideline.name
               }}</small>
             {% if guideline.active == false %}</s>{% endif %} {% if guideline.source %}
           <span class="pull-right">
