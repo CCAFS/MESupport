@@ -333,3 +333,9 @@ tr.active-0 td {
 td.importanceLevel {
   width: 35px;
 }
+
+.site-description {
+  text-align: justify;
+  font-family: 'Open Sans', sans-serif;
+  margin-top: 10px;
+}
