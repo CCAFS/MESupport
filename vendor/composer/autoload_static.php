@@ -43,8 +43,8 @@ class ComposerStaticInitee32ac382f626d7c37f18f032d2f5c6f
         ),
         'Slim\\Views\\' => 
         array (
-            0 => __DIR__ . '/..' . '/slim/twig-view/src',
-            1 => __DIR__ . '/..' . '/mathmarques/smarty-view/src',
+            0 => __DIR__ . '/..' . '/mathmarques/smarty-view/src',
+            1 => __DIR__ . '/..' . '/slim/twig-view/src',
         ),
         'Slim\\' => 
         array (
