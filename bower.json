@@ -3,7 +3,8 @@
   "description": "Monitoring and Evaluation Support Pack",
   "main": "main.js",
   "authors": [
-    "Sebastian Amariles"
+    "Sebastian Amariles",
+    "Felipe Elvira"
   ],
   "license": "MIT",
   "homepage": "",
@@ -16,8 +17,8 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "^3.3.7",
-    "jquery": "^3.2.1",
+    "bootstrap": "^4.5.2",
+    "jquery": "^3.5.1",
     "animate.css": "^3.5.2"
   }
 }

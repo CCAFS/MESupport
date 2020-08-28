@@ -5,10 +5,7 @@ use PDO;
 class SupportPackService {
 
 
-  public function __construct(){
-
-
-  }
+  public function __construct(){}
 
   // Get Categories
   public function getGuidelines(){

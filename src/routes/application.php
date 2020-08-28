@@ -32,12 +32,23 @@ $app->get('/guidelines', function ($request, $response, $args) {
   ]);
 })->setName('guidelines');
 
-// Guidelines
+// Admin
 $app->get('/admin', function ($request, $response, $args) {
   // Managers
   $supportPackService = new \services\SupportPackService();
-
   return $this->view->render($response, 'admin.html', [
+    'guidelines' => $supportPackService->getGuidelines(),
+    'roles' => $supportPackService->getRoles(),
+    'stages' => $supportPackService->getStages(),
+    'categories' => $supportPackService->getCategories()
+  ]);
+})->setName('admin');
+
+// Request upload resource
+$app->get('/upload-resource', function ($request, $response, $args) {
+  // Managers
+  $supportPackService = new \services\SupportPackService();
+  return $this->view->render($response, 'upload-resource.html', [
     'guidelines' => $supportPackService->getGuidelines(),
     'roles' => $supportPackService->getRoles(),
     'stages' => $supportPackService->getStages(),
@@ -74,5 +85,3 @@ $function = new Twig_SimpleFunction('getImportanceLevel', function ($guidelineID
   return "G".$guidelineID."-S".$stageID."-R".$roleID;
 });
 $container->get('view')->getEnvironment()->addFunction($function);
-
-?>
