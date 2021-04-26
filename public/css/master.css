@@ -236,6 +236,10 @@ li.guideline.type-1 {
   background: url('../images/type-1.png') no-repeat;
   background-position: 33px 8px;
 }
+li.guideline.type-2 {
+  background: url('../images/type-2.png') no-repeat;
+  background-position: 33px 8px;
+}
 
 #guidelines {
   margin-bottom: 14px;
