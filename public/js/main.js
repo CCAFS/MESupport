@@ -243,7 +243,6 @@ function printGuidelinesToDownload() {
     if (!isExternal && data.source) {
       filesToZip.push(downloadLink);
     }
-    console.log(data.source);
   });
 
   createZipFile();
@@ -334,7 +333,7 @@ function loadUser(email) {
 }
 
 function createZipFile() {
-  if (filesToZip.length > 1) {
+  if (filesToZip.length > 0) {
     $.ajax({
       type: "POST",
       url: "./api/zipfile",
@@ -423,9 +422,9 @@ function updateDataHeight() {
   });
 }
 
-function sendParentMessage(msg){
-    window.parent.postMessage(msg, '*');
-  }
+function sendParentMessage(msg) {
+  window.parent.postMessage(msg, '*');
+}
 
 jQuery.fn.classParam = function (cssName) {
   return getClassParameter(this, cssName)
